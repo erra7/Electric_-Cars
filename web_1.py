@@ -11,7 +11,7 @@ st.title("Find out your affordable ElectricCar")
 
 #Data Cleaning 
 
-extract numeric data
+#extract numeric data
 def extract_num(x):
     """
     this function extracts the numeric data from the string 
