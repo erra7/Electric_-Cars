@@ -177,5 +177,5 @@ def range_of_car(cars_1: pd.DataFrame, from_range: int, to_range: int):
           )
 
 
-output_4 = range_of_car(cars_1, 150,200)
+output_4 = range_of_car(cars_1, numberFrom, numberTo)
 st.dataframe(output_4)
