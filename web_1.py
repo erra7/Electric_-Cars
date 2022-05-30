@@ -4,7 +4,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-import re
+#import re
 
 
 df = pd.read_csv('electriccars.csv')
