@@ -140,7 +140,7 @@ st.write("""
 st.dataframe(output_1)
 
 
-# To Choose the Price range of a Car 
+# To Choose the Price range of a Cars 
 
 st.write("""
 ### Choose the Price Range 
