@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import re
 
 
-df = pd.read_csv(r'Python/Jupyter/Final_Project_ElectricCars/electriccars.csv')
+df = pd.read_csv('electriccars.csv')
 
 st.title("Find out your affordable ElectricCar")
 
