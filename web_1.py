@@ -15,81 +15,81 @@ st.title("Find out your affordable ElectricCar")
 #Data Cleaning 
 
 # extract numeric data
-def extract_num(x):
-    """
-    this function extracts the numeric data from the string 
-    and converts the data type to float. 
-    It uses a regex to extact intergers and floats.
-    """
-    return float(re.findall(r"[-+]?\d*\.?\d+|\d+", x)[0])
+# def extract_num(x):
+#     """
+#     this function extracts the numeric data from the string 
+#     and converts the data type to float. 
+#     It uses a regex to extact intergers and floats.
+#     """
+#     return float(re.findall(r"[-+]?\d*\.?\d+|\d+", x)[0])
 
-#df['Acceleration'][0]
+# #df['Acceleration'][0]
 
-# print(extract_num(df['Acceleration'][0]))
-# print(type(extract_num(df['Acceleration'][0])))
+# # print(extract_num(df['Acceleration'][0]))
+# # print(type(extract_num(df['Acceleration'][0])))
 
-df['BatteryCapacity'] = df['Subtitle'].apply(extract_num)
+# df['BatteryCapacity'] = df['Subtitle'].apply(extract_num)
 
-# extract brand name from name
-df['BrandName'] = df['Name'].apply(lambda x: x.split()[0])
+# # extract brand name from name
+# df['BrandName'] = df['Name'].apply(lambda x: x.split()[0])
 
-# example
-#df['Name'][0].split()
+# # example
+# #df['Name'][0].split()
 
-#df['Name'][0].split()[0]
+# #df['Name'][0].split()[0]
 
-for col_name in ['Acceleration', 'TopSpeed', 'Range', 'Efficiency']:
-    df[col_name] = df[col_name].apply(extract_num)
+# for col_name in ['Acceleration', 'TopSpeed', 'Range', 'Efficiency']:
+#     df[col_name] = df[col_name].apply(extract_num)
     
-df.drop(columns=['PriceinUK', 'Subtitle'] , axis=1, inplace=True)    
+# df.drop(columns=['PriceinUK', 'Subtitle'] , axis=1, inplace=True)    
 
-df['PriceinGermany'] = df['PriceinGermany']\
-                                           .fillna('-1')\
-                                           .apply(lambda x: re.sub(',', '', x))\
-                                           .apply(extract_num)\
-                                           .replace(-1, np.nan)
+# df['PriceinGermany'] = df['PriceinGermany']\
+#                                            .fillna('-1')\
+#                                            .apply(lambda x: re.sub(',', '', x))\
+#                                            .apply(extract_num)\
+#                                            .replace(-1, np.nan)
 
-FastChargeSpeed=[]
-for item in df['FastChargeSpeed']:
-    FastChargeSpeed+=[int(item.replace(' km/h','').replace('-','0'))]
-df['FastChargeSpeed']=FastChargeSpeed
+# FastChargeSpeed=[]
+# for item in df['FastChargeSpeed']:
+#     FastChargeSpeed+=[int(item.replace(' km/h','').replace('-','0'))]
+# df['FastChargeSpeed']=FastChargeSpeed
 
-df['FastChargeSpeed'] = df['FastChargeSpeed'].replace(0, np.nan)
+# df['FastChargeSpeed'] = df['FastChargeSpeed'].replace(0, np.nan)
 
-df1 = df.dropna()
+# df1 = df.dropna()
 
-cars = df1.drop_duplicates()
+# cars = df1.drop_duplicates()
 
-cars.Name = cars.Name.str.strip()
+# cars.Name = cars.Name.str.strip()
 
-cars_1 = cars.rename(columns = {"Acceleration": "acceleration_in_sec", 
-                                "Range": "range_km", 
-                                "TopSpeed": "top_speed_km_h",
-                                "Efficiency": "efficiency_Wh_km",
-                                "FastChargeSpeed": "fast_charge_speed_km_h",
-                                "PriceinGermany": "price_in_euros",
-                                "BatteryCapacity": "batter_capacity_kWh"
-                               })
+# cars_1 = cars.rename(columns = {"Acceleration": "acceleration_in_sec", 
+#                                 "Range": "range_km", 
+#                                 "TopSpeed": "top_speed_km_h",
+#                                 "Efficiency": "efficiency_Wh_km",
+#                                 "FastChargeSpeed": "fast_charge_speed_km_h",
+#                                 "PriceinGermany": "price_in_euros",
+#                                 "BatteryCapacity": "batter_capacity_kWh"
+#                                })
 
-# Displays top 10 brands of a car
+# # Displays top 10 brands of a car
 
-st.write("""
-### Top 10 Brands
-""")
+# st.write("""
+# ### Top 10 Brands
+# """)
 
-def top_brands_10(cars_1: pd.DataFrame):
-    return(
-       cars_1
-         .groupby(['BrandName'])['price_in_euros']
-         .sum()
-         .sort_values(ascending=False)
-         .head(10)
-         .reset_index()
-          )
+# def top_brands_10(cars_1: pd.DataFrame):
+#     return(
+#        cars_1
+#          .groupby(['BrandName'])['price_in_euros']
+#          .sum()
+#          .sort_values(ascending=False)
+#          .head(10)
+#          .reset_index()
+#           )
 
-top_brands = top_brands_10(cars_1)
+# top_brands = top_brands_10(cars_1)
 
-st.dataframe(top_brands)
+# st.dataframe(top_brands)
 
 # #Displays top 10 Cars 
 
