@@ -25,8 +25,8 @@ def extract_num(x):
 
 #df['Acceleration'][0]
 
-print(extract_num(df['Acceleration'][0]))
-print(type(extract_num(df['Acceleration'][0])))
+# print(extract_num(df['Acceleration'][0]))
+# print(type(extract_num(df['Acceleration'][0])))
 
 df['BatteryCapacity'] = df['Subtitle'].apply(extract_num)
 
