@@ -226,4 +226,27 @@ def number_of_seats(cars_1: pd.DataFrame, NumberofSeats: int):
 output_5 = number_of_seats(cars_1, no_of_seats)
 st.dataframe(output_5)
 
+# # Selection of different features
 
+st.write("""
+### Choose different features of car 
+""")
+from_Battery,to_Battery = st.slider('Select the Batter Capacity of the Car', value=[min(cars_1['batter_capacity_kWh']),max(cars_1['batter_capacity_kWh'])])
+
+from_range,to_range = st.slider('Select the Range of the Car', value=[min(cars_1['range_km']),max(cars_1['range_km'])])
+
+from_acc,to_acc = st.slider('Select the Acceleration of the Car', value=[min(cars_1['acceleration_in_sec']),max(cars_1['acceleration_in_sec'])])
+
+from_speed,to_speed = st.slider('Select the Speed of the Car', value=[min(cars_1['top_speed_km_h']),max(cars_1['top_speed_km_h'])])
+
+def four_features(cars_1: pd.DataFrame, from_BatteryCapacity: int, to_BatteryCapacity: int,from_range: int, to_range: int, from_acceleration: int, to_acceleration: int, from_topspeed: int, to_topspeed: int):
+    
+    data=cars_1.copy()
+    
+    return(data    
+    .query('batter_capacity_kWh >= @from_BatteryCapacity & batter_capacity_kWh <= @to_BatteryCapacity & range_km >= @from_range & range_km <= @to_range & acceleration_in_sec >= @from_acceleration & acceleration_in_sec <=@to_acceleration & top_speed_km_h >= @from_topspeed & top_speed_km_h <= @to_topspeed')
+    .filter(['Name', 'price_in_euros', 'batter_capacity_kWh', 'acceleration_in_sec','top_speed_km_h', 
+             'range_km', 'fast_charge_speed_km_h','efficiency_Wh_km', 'Drive', 'NumberofSeats'])        
+          )
+all_features = four_features(cars_1, from_Battery,to_Battery,from_range,to_range,from_acc,to_acc,from_speed,to_speed)
+st.dataframe(all_features)
