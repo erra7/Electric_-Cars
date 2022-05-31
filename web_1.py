@@ -231,13 +231,13 @@ st.dataframe(output_5)
 st.write("""
 ### Choose different features of car 
 """)
-from_Battery,to_Battery = st.slider('Select the Batter Capacity of the Car', value=[min(cars_1['batter_capacity_kWh']),max(cars_1['batter_capacity_kWh'])])
+from_Battery,to_Battery = st.slider('Select the Batter Capacity of the Car', value=[min(cars_1['batter_capacity_kWh']),max(cars_1['batter_capacity_kWh'])], key='battery_slider')
 
-from_range,to_range = st.slider('Select the Range of the Car', value=[min(cars_1['range_km']),max(cars_1['range_km'])])
+from_range,to_range = st.slider('Select the Range of the Car', value=[min(cars_1['range_km']),max(cars_1['range_km'])], key='Range_slider')
 
-from_acc,to_acc = st.slider('Select the Acceleration of the Car', value=[min(cars_1['acceleration_in_sec']),max(cars_1['acceleration_in_sec'])])
+from_acc,to_acc = st.slider('Select the Acceleration of the Car', value=[min(cars_1['acceleration_in_sec']),max(cars_1['acceleration_in_sec'])], key='Acceleration_slider')
 
-from_speed,to_speed = st.slider('Select the Speed of the Car', value=[min(cars_1['top_speed_km_h']),max(cars_1['top_speed_km_h'])])
+from_speed,to_speed = st.slider('Select the Speed of the Car', value=[min(cars_1['top_speed_km_h']),max(cars_1['top_speed_km_h'])], key = 'Speed_slider')
 
 def four_features(cars_1: pd.DataFrame, from_BatteryCapacity: int, to_BatteryCapacity: int,from_range: int, to_range: int, from_acceleration: int, to_acceleration: int, from_topspeed: int, to_topspeed: int):
     
