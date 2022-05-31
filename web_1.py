@@ -177,5 +177,53 @@ def range_of_car(cars_1: pd.DataFrame, from_range: int, to_range: int):
           )
 
 
-output_4 = range_of_car(cars_1, numberFrom, numberTo)
+output_3 = range_of_car(cars_1, numberFrom, numberTo)
+st.dataframe(output_3)
+
+# Displays the Drive type and it features if we give Drive type  as Input
+
+st.write("""
+### Choose the Drive type
+""")
+
+drive = st.selectbox(
+    ' ',
+     (cars_1['Drive'].unique()))
+
+def drive_type(cars_1: pd.DataFrame, Drive: str):
+    
+    data=cars_1.copy()
+    
+    return(data         
+    .query('Drive == @Drive')  
+    .filter(['Name','price_in_euros','batter_capacity_kWh', 'acceleration_in_sec', 'TopSpeed', 'fast_charge_speed_km_h', 
+             'range_km', 'efficiency_Wh_km', 'Drive', 'NumberofSeats'])        
+    )
+
+output_4 = drive_type(cars_1, drive)
 st.dataframe(output_4)
+
+# Displays the NumberofSeats and it features if we give NumberofSeats  as Input
+
+st.write("""
+### Choose the Number of Seats 
+""")
+
+no_of_seats = st.selectbox(
+    ' ',
+     (cars_1['NumberofSeats'].unique()))
+
+def number_of_seats(cars_1: pd.DataFrame, NumberofSeats: int):
+    
+    data=cars_1.copy()
+    
+    return(data         
+    .query('NumberofSeats == @NumberofSeats')  
+    .filter(['Name','price_in_euros','batter_capacity_kWh', 'acceleration_in_sec', 'TopSpeed', 'fast_charge_speed_km_h', 
+             'range_km', 'efficiency_Wh_km', 'Drive',])        
+    )
+
+output_5 = number_of_seats(cars_1, no_of_seats)
+st.dataframe(output_5)
+
+
