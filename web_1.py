@@ -160,25 +160,25 @@ st.dataframe(output_2)
 
 ##To Choose the Range of a Car 
 
-st.write("""
-### Choose the Range of the Car
-""")
+# st.write("""
+# ### Choose the Range of the Car
+# """)
 
-numberFrom,numberTo = st.slider('Select the Range of the Car', value=[min(cars_1['range_km']),max(cars_1['range_km'])])
+# numberFrom,numberTo = st.slider('Select the Range of the Car', value=[min(cars_1['range_km']),max(cars_1['range_km'])])
 
-def range_of_car(cars_1: pd.DataFrame, from_range: int, to_range: int):
+# def range_of_car(cars_1: pd.DataFrame, from_range: int, to_range: int):
     
-    data=cars_1.copy()
+#     data=cars_1.copy()
     
-    return(data    
-    .query('range_km >= @from_range & range_km <= @to_range')
-    .filter(['Name', 'price_in_euros', 'batter_capacity_kWh', 'acceleration_in_sec','top_speed_km_h', 
-             'fast_charge_speed_km_h', 'range_km', 'efficiency_Wh_km', 'Drive', 'NumberofSeats'])        
-          )
+#     return(data    
+#     .query('range_km >= @from_range & range_km <= @to_range')
+#     .filter(['Name', 'price_in_euros', 'batter_capacity_kWh', 'acceleration_in_sec','top_speed_km_h', 
+#              'fast_charge_speed_km_h', 'range_km', 'efficiency_Wh_km', 'Drive', 'NumberofSeats'])        
+#           )
 
 
-output_3 = range_of_car(cars_1, numberFrom, numberTo)
-st.dataframe(output_3)
+# output_3 = range_of_car(cars_1, numberFrom, numberTo)
+# st.dataframe(output_3)
 
 # Displays the Drive type and it features if we give Drive type  as Input
 
