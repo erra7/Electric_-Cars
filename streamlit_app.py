@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 
-ecars = pd.read_csv(r'Python/Jupyter/Final_Project_ElectricCars/electriccars.csv')
+ecars = pd.read_csv('electriccars.csv')
 
 st.title("Find out your affordable ElectricCar")
 
