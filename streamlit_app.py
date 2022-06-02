@@ -38,9 +38,9 @@ with st.sidebar:
     # acceleration in seconds
     acc_sel = st.slider(
         'Select acceleration in seconds', 
-        ecars_cl.acceleration_in_sec.min(),
-        ecars_cl.acceleration_in_sec.max(),
-        0.5
+        min(ecars_cl['acceleration_in_sec']),
+        max(ecars_cl['acceleration_in_sec']),
+        step = 0.5
     )
 
     # drive
