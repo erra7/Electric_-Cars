@@ -76,3 +76,118 @@ sel_cars_id = ecars_cl.query(f"({acc_sel - 2} < acceleration_in_sec < {acc_sel +
 st.dataframe(
     ecars.iloc[sel_cars_id,:]
 )
+
+# For Range 
+# model training
+pred_vars = ['range_km','drive']
+X = ecars_cl[pred_vars]
+y = ecars_cl['price']
+
+# pre process
+X_processed = pd.get_dummies(X, drop_first=True)
+
+# lm training
+lm = LinearRegression()
+lm.fit(X_processed, y)
+
+with st.sidebar:
+
+    # acceleration in seconds
+    range_sel = st.slider(
+        'Select range in kilometers', 
+        min(ecars_cl['range_km']),
+        max(ecars_cl['range_km']),
+        step = 1
+    )
+
+    # drive
+    drive_sel = st.selectbox('Select drive', ecars_cl.drive.unique(),key = 'drive_slider')
+
+
+# create df to run model
+car_to_predict = {
+    'range_km': range_sel,
+    'drive_front wheel drive':0, 
+    'drive_all wheel drive':0,
+    'drive_rear wheel drive':0
+    }
+
+car_to_predict['drive_' + drive_sel] = 1
+
+car_to_predict = (
+    pd.DataFrame(car_to_predict, index=[0])
+    .filter(X_processed.columns.tolist())
+    )
+
+# run model
+pred_price = lm.predict(car_to_predict)[0]
+
+# print predicted price
+st.write('Predicted price for your car ', str(round(pred_price) / 1_000), "€")
+
+# suggest cars from the dataset
+st.write('Cars you may be interested:')
+
+
+sel_cars_id_1 = ecars_cl.query(f"({range_sel - 100} < range_km < {range_sel + 100}) & (drive == '{str(drive_sel)}')").index
+st.dataframe(
+    ecars.iloc[sel_cars_id_1,:]
+)
+
+# For Topspeed
+
+# model training
+pred_vars = ['top_speed_km_h','drive']
+X = ecars_cl[pred_vars]
+y = ecars_cl['price']
+
+# pre process
+X_processed = pd.get_dummies(X, drop_first=True)
+
+# lm training
+lm = LinearRegression()
+lm.fit(X_processed, y)
+
+with st.sidebar:
+
+    # acceleration in seconds
+    speed_sel = st.slider(
+        'Select speed in kilometers per hour', 
+        min(ecars_cl['top_speed_km_h']),
+        max(ecars_cl['top_speed_km_h']),
+        step = 1
+    )
+
+    # drive
+    drive_sel = st.selectbox('Select drive', ecars_cl.drive.unique(),key = 'speed_slider')
+
+
+# create df to run model
+car_to_predict = {
+    'top_speed_km_h': speed_sel,
+    'drive_front wheel drive':0, 
+    'drive_all wheel drive':0,
+    'drive_rear wheel drive':0
+    }
+
+car_to_predict['drive_' + drive_sel] = 1
+
+car_to_predict = (
+    pd.DataFrame(car_to_predict, index=[0])
+    .filter(X_processed.columns.tolist())
+    )
+
+# run model
+pred_price = lm.predict(car_to_predict)[0]
+
+# print predicted price
+st.write('Predicted price for your car ', str(round(pred_price) / 1_000), "€")
+
+# suggest cars from the dataset
+st.write('Cars you may be interested:')
+
+
+sel_cars_id_2 = ecars_cl.query(f"({speed_sel - 10} < top_speed_km_h < {speed_sel + 10}) & (drive == '{str(drive_sel)}')").index
+st.dataframe(
+    ecars.iloc[sel_cars_id_2,:]
+)
