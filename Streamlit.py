@@ -87,7 +87,7 @@ st.write('Predicted price for your car ', str(round(pred_price) / 1_000), "€")
 st.write('Cars you may be interested:')
 
 
-sel_cars_id = ecars_cl.query(f"({acc_sel - 2} < acceleration_in_sec < {acc_sel + 2}) & ({range_sel - 100} < range_km < {range_sel + 100}) & ({speed_sel - 10} < top_speed_km_h < {speed_sel + 10}) & (drive == '{str(drive_sel)}')").index
+sel_cars_id = ecars_cl.query(f"({acc_sel - 2} < acceleration_in_sec < {acc_sel + 2}) & ({range_sel - 100} < range_km < {range_sel + 100}) & (drive == '{str(drive_sel)}')").index
 st.dataframe(
     ecars.iloc[sel_cars_id,:]
 )
