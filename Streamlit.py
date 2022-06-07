@@ -26,7 +26,7 @@ ecars_cl = (ecars
 ecars_cl.sample(5)
 
 # model training
-pred_vars = ['acceleration_in_sec','range_km','top_speed_km_h','drive']
+pred_vars = ['acceleration_in_sec','range_km','drive']
 X = ecars_cl[pred_vars]
 y = ecars_cl['price']
 
@@ -56,16 +56,6 @@ with st.sidebar:
         max(ecars_cl['range_km']),
         step = 1
     )
-    
-with st.sidebar:
-
-    # acceleration in seconds
-    speed_sel = st.slider(
-        'Select speed in kilometers per hour', 
-        min(ecars_cl['top_speed_km_h']),
-        max(ecars_cl['top_speed_km_h']),
-        step = 1
-    )
 
     drive_sel = st.selectbox('Select drive', ecars_cl.drive.unique(),key = 'drive_slider')
 
@@ -74,7 +64,6 @@ with st.sidebar:
 car_to_predict = {
     'acceleration_in_sec': acc_sel,
     'range_km': range_sel,
-    'top_speed_km_h': speed_sel,
     'drive_front wheel drive':0, 
     'drive_all wheel drive':0,
     'drive_rear wheel drive':0
