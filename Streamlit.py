@@ -5,7 +5,7 @@ import re
 
 from sklearn.linear_model import LinearRegression
 
-ecars = pd.read_csv(r'Python/Jupyter/Final_Project_ElectricCars/electriccars.csv')
+ecars = pd.read_csv('electriccars.csv')
 ecars.drop(columns=['PriceinUK'] , axis=1, inplace=True)
 
 st.title("Find out your affordable ElectricCar")
