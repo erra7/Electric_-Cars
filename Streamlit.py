@@ -91,3 +91,94 @@ sel_cars_id = ecars_cl.query(f"({acc_sel - 2} < acceleration_in_sec < {acc_sel +
 st.dataframe(
     ecars.iloc[sel_cars_id,:]
 )
+
+# again import 
+
+e_cars = pd.read_csv(r'Python/Jupyter/Final_Project_ElectricCars/electriccars.csv')
+e_cars.drop(columns=['PriceinUK'] , axis=1, inplace=True)
+electric_cars = e_cars.dropna()
+
+# Displays the Price and it features if we give car name  as Input
+
+st.write("""
+### Are you Interested in Specific Car? 
+""")
+
+name = st.selectbox('Choose the name of the car which you like',(electric_cars['Name'].unique()))
+
+def name_of_car(electric_cars: pd.DataFrame, Name: str):
+    
+    data=electric_cars.copy()
+    
+    return(data         
+    .query('Name == @Name')  
+    .filter(['Name', 'Subtitle','Acceleration', 'TopSpeed', 'Range','Efficiency', 'FastChargeSpeed', 'Drive',                   'NumberofSeats', 'PriceinGermany'])       
+    )
+
+output_1 = name_of_car(electric_cars, name)
+
+st.text("""
+ Car Features  
+""")
+    
+st.dataframe(output_1)
+
+# data cleaning 
+
+# extract brand name from name
+electric_cars['BrandName'] = electric_cars['Name'].apply(lambda x: x.split()[0])
+
+# extract numeric data
+def extract_num(x):
+    """
+    this function extracts the numeric data from the string 
+    and converts the data type to float. 
+    It uses a regex to extact intergers and floats.
+    """
+    return float(re.findall(r"[-+]?\d*\.?\d+|\d+", x)[0])
+
+electric_cars['PriceinGermany'] = electric_cars['PriceinGermany']\
+                                           .fillna('-1')\
+                                           .apply(lambda x: re.sub(',', '', x))\
+                                           .apply(extract_num)\
+                                           .replace(-1, np.nan)
+
+# Displays top 10 brands of a car
+
+st.write("""
+### Top 10 Brands
+""")
+
+def top_brands_10(electric_cars: pd.DataFrame):
+    return(
+       electric_cars
+         .groupby(['BrandName'])['PriceinGermany']
+         .sum()
+         .sort_values(ascending=False)
+         .head(10)
+         .reset_index()
+          )
+
+top_brands = top_brands_10(electric_cars)
+
+st.dataframe(top_brands)
+
+#Displays top 10 Cars 
+
+st.write("""
+### Top 10 Cars
+""")
+
+def top_cars_10(electric_cars : pd.DataFrame) :
+    return(
+       electric_cars
+        .groupby(['Name','Acceleration', 'TopSpeed', 'Range','Efficiency','FastChargeSpeed','Drive','NumberofSeats']) ['PriceinGermany']      
+        .sum()
+        .sort_values(ascending=False)
+        .head(10)
+        .reset_index()
+)
+
+top_cars = top_cars_10(electric_cars)
+
+st.dataframe(top_cars)
