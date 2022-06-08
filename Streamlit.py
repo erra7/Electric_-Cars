@@ -81,7 +81,8 @@ pred_price = lm.predict(car_to_predict)[0]
 
 
 # print predicted price
-st.write('Predicted price for your car ', str(round(pred_price) / 1_000), "€")
+st.write(""" 
+### Predicted price for your car""" , str(round(pred_price) / 1000), "€")
 
 # suggest cars from the dataset
 st.write('Cars you may be interested:')
