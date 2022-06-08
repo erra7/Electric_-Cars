@@ -94,7 +94,7 @@ st.dataframe(
 
 # again import 
 
-e_cars = pd.read_csv(r'Python/Jupyter/Final_Project_ElectricCars/electriccars.csv')
+e_cars = pd.read_csv('electriccars.csv')
 e_cars.drop(columns=['PriceinUK'] , axis=1, inplace=True)
 electric_cars = e_cars.dropna()
 
@@ -112,7 +112,7 @@ def name_of_car(electric_cars: pd.DataFrame, Name: str):
     
     return(data         
     .query('Name == @Name')  
-    .filter(['Name', 'Subtitle','Acceleration', 'TopSpeed', 'Range','Efficiency', 'FastChargeSpeed', 'Drive',                   'NumberofSeats', 'PriceinGermany'])       
+    .filter(['Name', 'Subtitle','Acceleration', 'TopSpeed', 'Range','Efficiency', 'FastChargeSpeed', 'Drive','NumberofSeats', 'PriceinGermany'])       
     )
 
 output_1 = name_of_car(electric_cars, name)
